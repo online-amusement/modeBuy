@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['cors']], function(){
+    //Route::get('/login', [App\Http\Controllers\MemeberApiController::class, 'login']);
 });

@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['cors']], function(){
-    //Route::get('/login', [App\Http\Controllers\MemeberApiController::class, 'login']);
+//会員登録
+Route::prefix('member')->group(function () {
+    Route::post('/temporary-registration', [App\Http\Controllers\EmailVerificationController::class, 'temporaryRegistration']);
+    Route::post('/official-registration', [App\Http\Controllers\EmailVerificationController::class, 'officialRegistration']);
+});
+
+Route::middleware(['cors'])->group(function() {
+    Route::post('/login', [App\Http\Controllers\MemberApiController::class, 'login']);
+    Route::post('/me', [App\Http\Controllers\MemberApiController::class, 'member']);
 });

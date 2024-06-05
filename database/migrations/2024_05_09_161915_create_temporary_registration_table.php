@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('temporary_registration', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
-            $table->integer('point');
+            $table->string("email", 128);
+            $table->string("token", 250)->comment("確認トークン");
+            $table->dateTime("expiration_date")->comment("有効期限");
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('temporary_registration');
     }
 };

@@ -1,9 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import './bootstrap';
 import { createApp } from 'vue';
 
@@ -13,18 +7,20 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
-const Vue = createApp({});
+const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
+import MemberComponent from './components/member/MemberComponent.vue';
+import MemberEditComponent from './components/member/MemberEditComponent.vue';
 
-Vue.component('member-component', require('./components/member/MemberComponent.vue').default);
+app.component('member-component', MemberComponent);
+app.component('member-edit-component', MemberEditComponent);
 
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ * Eg. ./components/ExampleComponent.vue -> 
  */
 
 // Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
@@ -37,5 +33,4 @@ Vue.component('member-component', require('./components/member/MemberComponent.v
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-Vue.mount('#app');
-
+app.mount('#app');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Services\MemberService;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class MemberApiController extends Controller
@@ -38,7 +39,7 @@ class MemberApiController extends Controller
                 "result" => false,
                 "status" => 401,
                 "message" => "ユーザー情報を取得できませんでした。",
-            ]);
+            ], 401);
         }
     }
 
@@ -48,9 +49,15 @@ class MemberApiController extends Controller
         $password = $request->get("password");
 
         //メールアドレスが一致するメンバーを検索
-        $member = $this->memberService->findBy("email", "=", $email)->first();
+        $member = $this->memberService->findBy("email", "=", $email);
 
         if($member && Hash::check($password, $member->password)) {
+
+            $token = Str::random(80);
+            //リフレッシュトークン
+            $member->api_token = $token;
+            $member->save();
+
             return response()->json([
                 "result" => true,
                 "status" => 200,
@@ -65,7 +72,7 @@ class MemberApiController extends Controller
                 "result" => false,
                 "status" => 401,
                 "message" => "メールアドレスが存在しません。",
-                "token" => "",
+                "token" => null,
             ]);
         }
 
@@ -74,8 +81,15 @@ class MemberApiController extends Controller
                 "result" => false,
                 "status" => 401,
                 "message" => "パスワードが一致しません。",
-                "token" => "",
+                "token" => null,
             ]);
         }
+    }
+
+    public function logout()
+    {
+        return response()->json([
+            "message" => "ログアウトしました。"
+        ]);
     }
 }

@@ -6,16 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>title</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        
-        <member-component 
-            :members="{{ json_encode($members) }}"
+        @if($member)
+        <member-edit-component 
+            :member="{{ ($member) }}"
             :input="{{ json_encode(request()->input()) }}"
             :errors= "{{ $errors }}">
-        </member-component >
+        </member-edit-component >
+        @else
+        <member-edit-component 
+            :input="{{ json_encode(request()->input()) }}"
+            :errors= "{{ $errors }}">
+        </member-edit-component >
+        @endif
     </div>
     <style lang="scss">
         #app {

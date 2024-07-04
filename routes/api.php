@@ -22,5 +22,6 @@ Route::prefix('member')->group(function () {
 
 Route::middleware(['cors'])->group(function() {
     Route::post('/login', [App\Http\Controllers\MemberApiController::class, 'login']);
+    Route::get('/logout', [App\Http\Controllers\MemberApiController::class, 'logout']);
     Route::post('/me', [App\Http\Controllers\MemberApiController::class, 'member']);
 });

@@ -101,4 +101,22 @@ class MemberRepository
         );
         return $member;
     }
+
+    //メンバー削除
+    public function deleteMember($id)
+    {
+        return $this->member
+            ->newQuery()
+            ->where("id", "=", $id)
+            ->delete();
+    }
+
+    //メンバーが存在してるか
+    public function isExistMember($email)
+    {
+        return $this->member
+            ->newQuery()
+            ->where("email", $email)
+            ->exists();
+    }
 }

@@ -32,4 +32,14 @@ class MemberService
     {
         return $this->memberRepository->createOrUpdate($id, $name, $email, $country, $address, $city, $status, $points);
     }
+
+    public function deleteMember($memberId)
+    {
+        return $this->memberRepository->deleteMember($memberId);
+    }
+
+    public function isExistMember($email)
+    {
+        return $this->memberRepository->isExistMember($email);
+    }
 }

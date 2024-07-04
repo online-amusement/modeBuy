@@ -12,6 +12,7 @@ use App\Http\Requests\TemporaryRegistrationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\Registration;
+use Carbon\Carbon;
 
 class EmailVerificationController extends Controller
 {
@@ -36,24 +37,38 @@ class EmailVerificationController extends Controller
         //トークン発行
         $token = Str::random(80);
 
-        //temporary_registrationデータベースに登録
-        $temporaryRegistration = $this->temporaryRegistrationService->createTemporaryRegistration($email);
+        //メンバーが存在してるか
+        $isExistMember = $this->memberService->isExistMember($email);
 
-        //temporary_registrationデータベースを検索して同じメールアドレスが存在していて、なおかつ有効期限が切れていた場合有効期限が切れてる方のデータ削除
-        //$deleteTemporaryRegistration = $this->temporaryRegistrationService->DeleteByTemporaryRegistration($email);
+        //メンバーを取得
+        $member = $this->memberService->findBy("email", "=", $email);
 
-        //memberに新規登録
-        $member = $this->memberRegistrationService->createTemporaryMember($email, $temporaryRegistration->token);
+        //メンバーが存在してない、メンバーのステータスが仮登録状態なら
+        if($isExistMember == false) {
+            //temporary_registrationデータベースに登録
+            $temporaryRegistration = $this->temporaryRegistrationService->createTemporaryRegistration($email);
 
-        //仮登録のメールアドレス宛にメールを送信
-        Mail::to($email)->send(new \App\Mail\Registration($temporaryRegistration));
+            //memberに新規登録
+            $member = $this->memberRegistrationService->createTemporaryMember($email, $temporaryRegistration->token);
 
+            //仮登録のメールアドレス宛にメールを送信
+            Mail::to($email)->send(new \App\Mail\Registration($temporaryRegistration));
+
+            //レスポンスを返す処理
+            return response()->json([
+                "result" => true,
+                "status" => 200,
+                "message" => "メールアドレス宛にメールを送信しました。",
+                "data" => $member
+            ]);
+        }
+
+        
         //レスポンスを返す処理
         return response()->json([
             "result" => true,
-            "status" => 200,
-            "message" => "メールアドレス宛にメールを送信しました。",
-            "data" => $member
+            "status" => 401,
+            "message" => "このメールアドレスは既に登録済みです。",
         ]);
 
     }
@@ -85,14 +100,6 @@ class EmailVerificationController extends Controller
                 "status" => 200,
                 "message" => "情報を登録しました。",
                 "token" => $member->api_token
-            ]);
-        }
-
-        if(!$memberInfoRegist) {
-            return response()->json([
-                "result" => false,
-                "status" => 401,
-                "message" => "情報を登録できませんでした。",
             ]);
         }
     }

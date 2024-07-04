@@ -69,6 +69,7 @@
                             <td>{{member.points}}</td>
                             <td class="btn-area">
                                 <button type="button" class="update-btn"><a class="update-color" :href="'/member/' + member.id + '/edit' ">更新</a></button>
+                                <button type="button" class="delete-btn"><a class="delete-color" :href="'/member/' + member.id + '/delete' ">削除</a></button>
                             </td>
                         </tr>
                         </tbody>
@@ -254,6 +255,15 @@ td.email {
     width: 50px;
     height: 30px;
 }
+.delete-btn {
+    margin-bottom: 5px;
+    background: #DD0000;
+    border: none;
+    border-radius: 3px;
+    width: 50px;
+    height: 30px;
+    margin: 0 5px;
+}
 a.create-color[data-v-3b6dc5ca] {
     text-decoration: none;
     color: #fff;
@@ -261,6 +271,10 @@ a.create-color[data-v-3b6dc5ca] {
 a.update-color[data-v-3b6dc5ca] {
     text-decoration: none;
     color: #000;
+}
+a.delete-color[data-v-3b6dc5ca] {
+    text-decoration: none;
+    color: #fff;
 }
 .pagenation-area {
     display: flex;

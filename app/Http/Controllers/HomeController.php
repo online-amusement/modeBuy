@@ -74,4 +74,11 @@ class HomeController extends Controller
 
         return redirect()->to('/home');
     }
+
+    public function delete(Request $request, $id)
+    {
+        $memberDelete = $this->memberService->deleteMember($id);
+
+        return redirect()->to('/home');
+    }
 }

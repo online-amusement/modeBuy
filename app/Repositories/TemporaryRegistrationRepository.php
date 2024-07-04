@@ -53,7 +53,6 @@ class TemporaryRegistrationRepository
     {
         return $this->temporaryRegistration
             ->newQuery()
-            ->where($field, $operator, $value)
-            ->first();   
+            ->where($field, $operator, $value);   
     }
 }

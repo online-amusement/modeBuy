@@ -30,5 +30,6 @@ Route::prefix("member")->group(function() {
     Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('member.create');
     Route::get('/{id}/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('member.edit');
     Route::post('/save', [App\Http\Controllers\HomeController::class, 'save'])->name('member.save');
+    Route::get('/{id}/delete', [App\Http\Controllers\HomeController::class, 'delete'])->name('member.delete');
 });
 

@@ -6,7 +6,7 @@
             <h1 v-else class="member-title">メンバー作成</h1>
             <div class="contents">
                 <div class="member-name-contents">
-                    <label class="id">名前：</label>
+                    <label class="id">メンバー管理ID：</label>
                     <input type="text" class="id" name="id" id="id" readonly v-model="id" />
                     <strong class="error" v-for="(value,index) in errors.id" :key="index">{{ value }}</strong>
                 </div>
@@ -76,6 +76,7 @@ const isEmpty = (obj) => {
 }
 
 onMounted(() => {
+    console.log(member)
     setValidation();
     
 })

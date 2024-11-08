@@ -24,4 +24,8 @@ Route::middleware(['cors'])->group(function() {
     Route::post('/login', [App\Http\Controllers\MemberApiController::class, 'login']);
     Route::get('/logout', [App\Http\Controllers\MemberApiController::class, 'logout']);
     Route::post('/me', [App\Http\Controllers\MemberApiController::class, 'member']);
+
+    Route::prefix('object-lineup')->group(function() {
+        Route::get('/', [App\Http\Controllers\ObjectController::class, 'objectLineUpData']);
+    });
 });

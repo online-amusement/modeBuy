@@ -81,15 +81,15 @@ class EmailVerificationController extends Controller
         $password = $request->get('password');
         //トークン
         $token = $request->get('token');
-        //国
-        $country = $request->get('country');
         //アドレス
         $address = $request->get('address');
         //アドレス2
         $city = $request->get('city');
+        //国
+        $country = $request->get('country');
         
         //メンバーDBに登録
-        $memberInfoRegist = $this->memberService->memberInfoRegister($name, $password, $token, $country, $address, $city);
+        $memberInfoRegist = $this->memberService->memberInfoRegister($name, $password, $token, $address, $city, $country);
 
         //メンバー情報取得
         $member = $this->memberService->findBy("api_token", "=", $token)->first();

@@ -11,9 +11,13 @@ const app = createApp({});
 
 import MemberComponent from './components/member/MemberComponent.vue';
 import MemberEditComponent from './components/member/MemberEditComponent.vue';
+import LineupComponent from './components/object/LineupComponent.vue';
+import LineupEditComponent from './components/object/LineupEditComponent.vue';
 
 app.component('member-component', MemberComponent);
 app.component('member-edit-component', MemberEditComponent);
+app.component('object-lineup-component', LineupComponent);
+app.component('object-lineup-edit-component', LineupEditComponent);
 
 /**
  * The following block of code may be used to automatically register your

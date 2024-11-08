@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>title</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
-    <div id="app">
-        
-        <member-component 
-            :members="{{ json_encode($members) }}"
-            :input="{{ json_encode(request()->input()) }}"
-            :errors= "{{ $errors }}">
-        </member-component >
-    </div>
-    <style lang="scss">
-        #app {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-</body>
+@extends('layouts.app')
+
+@section('content')
+    <member-component 
+        :members="{{ json_encode($members) }}"
+        :input="{{ json_encode(request()->input()) }}"
+        :errors= "{{ $errors }}">
+    </member-component >
+@endsection

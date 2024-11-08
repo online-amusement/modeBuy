@@ -117,13 +117,6 @@ onMounted(() => {
 
 })
 
-//選択されてるページネーションのボタンの色を変更
-const isCurrent = ((page) => {
-    let pager = props.members;
-    return page === pager.current_page
-})
-
-
 const clear = () => {
     location.href = props.members.path
 }
@@ -264,15 +257,15 @@ td.email {
     height: 30px;
     margin: 0 5px;
 }
-a.create-color[data-v-3b6dc5ca] {
+a.create-color {
     text-decoration: none;
     color: #fff;
 }
-a.update-color[data-v-3b6dc5ca] {
+a.update-color {
     text-decoration: none;
     color: #000;
 }
-a.delete-color[data-v-3b6dc5ca] {
+a.delete-color {
     text-decoration: none;
     color: #fff;
 }

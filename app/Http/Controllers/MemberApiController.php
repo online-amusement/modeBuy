@@ -24,7 +24,7 @@ class MemberApiController extends Controller
         $accessToken = $request->bearerToken();
 
         //取得したトークンとDBのメンバートークンが一致しているか確認
-        $memberToken = $this->memberService->findBy("api_token", "=", $accessToken)->first();
+        $memberToken = $this->memberService->findBy("api_token", "=", $accessToken);
 
         //トークンが一致するものが存在していれば
         if($memberToken) {
